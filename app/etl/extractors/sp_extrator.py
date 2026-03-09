@@ -1,6 +1,5 @@
 from io import BytesIO
 
-import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from etl.extractors.extractor import Extractor
@@ -23,7 +22,7 @@ class SPExtractor(Extractor):
         csv_response = requests.get(self.base_url + csv_url)
         file = BytesIO(csv_response.content)
 
-        self.data = pd.read_excel(file)
+        self.data = file
 
     def get_data(self):
         return self.data

@@ -3,9 +3,11 @@ from etl.transformers.sp_transformer import SPTransformer
 
 
 def main():
-    print("Hello, World!")
+    print("Loading...")
     sp_extractor = SPExtractor("https://prefeitura.sp.gov.br")
     sp_extractor.extract()
+    # cep_service = CEPService()
+
     sp_transformer = SPTransformer(sp_extractor.get_data())
     sp_transformer.transform()
 
