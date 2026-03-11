@@ -35,7 +35,7 @@ flowchart TD
     EX --> TR
     TR --> LD
     LD --> DB
-    LD --> Site[Site PHP lê o Banco]
+    DB --> Site[Site PHP lê o Banco]
     
     %% Conexões de apoio
     EX --> DB
