@@ -14,4 +14,5 @@ class HtmlCollector:
 
     def link_href(self, link_text):
         link = self._soup.find("a", text=link_text)
-        return link["href"].strip()
+        print(link)
+        return link["href"]

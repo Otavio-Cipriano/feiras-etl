@@ -20,15 +20,21 @@ class SPExtractor(Extractor):
             self.data = BytesIO(latest_file.read_bytes())
             return
 
+        self._delete_if_expired(latest_file)
+
         print("Downloading new file")
         http_requester = HttpRequester(ENDPOINTS.get("main"))
         response = http_requester.request_from_page()
 
         if response["status_code"] != 200:
             raise Exception(f"Error {response.status_code}")
+
         soup = HtmlCollector(response["text"])
-        csv_url = soup.link_href("Excel")
-        csv_response = http_requester.request_from_page(f"{self.base_url}/{csv_url}")
+        csv_url = soup.link_href("Clique aqui")
+
+        http_requester = HttpRequester(self.base_url + csv_url)
+        csv_response = http_requester.request_from_page()
+
         self.data = self._write_new_raw_data(
-            "sp", "sp_raw_data.xlsx", csv_response.content
+            "sp", "sp_raw_data.xlsx", csv_response["content"]
         )
