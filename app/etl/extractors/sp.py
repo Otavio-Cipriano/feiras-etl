@@ -20,7 +20,8 @@ class SPExtractor(Extractor):
             self.data = BytesIO(latest_file.read_bytes())
             return
 
-        self._delete_if_expired(latest_file)
+        if latest_file:
+            self._delete_if_expired(latest_file)
 
         print("Downloading new file")
         http_requester = HttpRequester(ENDPOINTS.get("main"))
@@ -36,5 +37,5 @@ class SPExtractor(Extractor):
         csv_response = http_requester.request_from_page()
 
         self.data = self._write_new_raw_data(
-            "sp", "sp_raw_data.xlsx", csv_response["content"]
+            "sp_raw_data.xlsx", csv_response["content"]
         )

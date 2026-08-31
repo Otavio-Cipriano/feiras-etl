@@ -1,6 +1,6 @@
 from app.config import URLS, Sites
-from app.etl.extractors.sp_extractor import SPExtractor
-from app.etl.transformers.sp_transformer import SPTransformer
+from app.etl.extractors.sp import SPExtractor
+from app.etl.transformers.sp import SPTransformer
 from app.services.cep_service import CEPService
 
 
