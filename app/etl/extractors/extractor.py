@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from io import BytesIO
 from pathlib import Path
 
-
+# Base Class to Alter 
 class Extractor(ABC):
     CACHE_MAX_AGE = timedelta(days=365)
 
@@ -29,6 +29,8 @@ class Extractor(ABC):
         return max(files, key=lambda f: f.stat().st_mtime)
 
     def _is_file_expired(self, file):
+        if not file.exists():
+            return None
         file_time = datetime.fromtimestamp(file.stat().st_mtime, tz=timezone.utc)
         return datetime.now(timezone.utc) - file_time > self.CACHE_MAX_AGE
 
@@ -36,7 +38,7 @@ class Extractor(ABC):
         if self._is_file_expired(file):
             file.unlink()
 
-    def _write_new_raw_data(self, folder, filename, content):
+    def _write_new_raw_data(self, filename, content):
         now = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         file_path = self.raw_path / f"{now}_{filename}"
         with open(file_path, "wb") as f:

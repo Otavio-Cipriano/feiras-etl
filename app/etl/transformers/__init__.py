@@ -1,3 +1,3 @@
-from .sp_transformer import SPTransformer
+from .sp import SPTransformer
 
 __all__ = ["SPTransformer"]
