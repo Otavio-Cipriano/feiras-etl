@@ -1,4 +1,4 @@
 from .extractor import Extractor
-from .sp_extractor import SPExtractor
+from .sp import SPExtractor
 
 __all__ = ["Extractor", "SPExtractor"]
